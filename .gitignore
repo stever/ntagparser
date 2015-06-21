@@ -1,0 +1,4 @@
+*.suo
+Solution/packages/
+Solution/TagParser/bin/
+Solution/TagParser/obj/
