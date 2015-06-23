@@ -1500,7 +1500,7 @@ namespace TagParser
             }
 
             // EOF
-            return new EOFToken();
+            return null;
         }
 
         /// <summary>

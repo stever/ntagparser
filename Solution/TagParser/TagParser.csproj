@@ -51,7 +51,6 @@
     <Compile Include="Tokens\CommentToken.cs" />
     <Compile Include="Tokens\DoctypeToken.cs" />
     <Compile Include="Tokens\EntityReferenceToken.cs" />
-    <Compile Include="Tokens\EOFToken.cs" />
     <Compile Include="Tokens\NewlineToken.cs" />
     <Compile Include="Tokens\NumberToken.cs" />
     <Compile Include="Tokens\ParseToken.cs" />
