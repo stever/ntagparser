@@ -6,7 +6,6 @@ namespace TagParser
     public abstract class Parser
     {
         protected ParseReader Stream; // Character input stream.
-        protected int MaxErrors;
         protected int NumErrors;
         protected int NumWarnings;
         protected int NumRecoveries;
@@ -27,7 +26,6 @@ namespace TagParser
         private void Init(ParseReader stream)
         {
             Stream = stream;
-            MaxErrors = 1000;
             NumErrors = 0;
             NumWarnings = 0;
             NumRecoveries = 0;

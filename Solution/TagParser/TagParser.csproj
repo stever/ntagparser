@@ -40,7 +40,6 @@
     <Compile Include="Attribute.cs" />
     <Compile Include="DummyElement.cs" />
     <Compile Include="EmptyElement.cs" />
-    <Compile Include="MaxErrorsException.cs" />
     <Compile Include="ParseAbortException.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="ParseReader.cs" />

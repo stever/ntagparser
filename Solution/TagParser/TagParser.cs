@@ -502,10 +502,7 @@ namespace TagParser
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
                                             Stream.Pushback(nextChar);
                                             ParseState = State.Recover;
-                                            if (++NumErrors >= MaxErrors)
-                                            {
-                                                throw new MaxErrorsException();
-                                            }
+                                            NumErrors++;
                                         }
                                         break;
                                     }
@@ -553,10 +550,7 @@ namespace TagParser
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
                                             Stream.Pushback(nextChar);
                                             ParseState = State.Recover;
-                                            if (++NumErrors >= MaxErrors)
-                                            {
-                                                throw new MaxErrorsException();
-                                            }
+                                            NumErrors++;
                                         }
                                         break;
                                     }
@@ -590,10 +584,7 @@ namespace TagParser
                                         // Report unknown transition path as an error.
                                         Log.Error(GetEdgeUnknownErrorMessage(nextChar, ParseState));
                                         ParseState = State.Recover;
-                                        if (++NumErrors >= MaxErrors)
-                                        {
-                                            throw new MaxErrorsException();
-                                        }
+                                        NumErrors++;
                                         break;
                                     }
                             }
@@ -731,10 +722,7 @@ namespace TagParser
                                         // Unknown transition path from this state
                                         Log.Error(GetEdgeUnknownErrorMessage(nextChar, ParseState));
                                         ParseState = State.Recover;
-                                        if (++NumErrors >= MaxErrors)
-                                        {
-                                            throw new MaxErrorsException();
-                                        }
+                                        NumErrors++; 
                                         break;
                                     }
                             }
@@ -864,10 +852,7 @@ namespace TagParser
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
                                             Stream.Pushback(nextChar);
                                             ParseState = State.Recover;
-                                            if (++NumErrors >= MaxErrors)
-                                            {
-                                                throw new MaxErrorsException();
-                                            }
+                                            NumErrors++;
                                         }
                                         break;
                                     }
@@ -890,10 +875,7 @@ namespace TagParser
                                         // Unknown transition path from this state
                                         Log.Error(GetEdgeUnknownErrorMessage(nextChar, ParseState));
                                         ParseState = State.Recover;
-                                        if (++NumErrors >= MaxErrors)
-                                        {
-                                            throw new MaxErrorsException();
-                                        }
+                                        NumErrors++;
                                         break;
                                     }
                             }
@@ -985,10 +967,7 @@ namespace TagParser
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
                                             Stream.Pushback(nextChar);
                                             ParseState = State.Recover;
-                                            if (++NumErrors >= MaxErrors)
-                                            {
-                                                throw new MaxErrorsException();
-                                            }
+                                            NumErrors++;
                                         }
                                         break;
                                     }
@@ -1018,10 +997,7 @@ namespace TagParser
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
                                             Stream.Pushback(nextChar);
                                             ParseState = State.Recover;
-                                            if (++NumErrors >= MaxErrors)
-                                            {
-                                                throw new MaxErrorsException();
-                                            }
+                                            NumErrors++;
                                         }
                                         break;
                                     }
@@ -1041,10 +1017,7 @@ namespace TagParser
                                 Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
                                 Stream.Pushback(nextChar);
                                 ParseState = State.Recover;
-                                if (++NumErrors >= MaxErrors)
-                                {
-                                    throw new MaxErrorsException();
-                                }
+                                NumErrors++;
                             }
                             break;
                         }
@@ -1065,10 +1038,7 @@ namespace TagParser
                                             Log.Error("CData declaration expected");
                                             Stream.Pushback(nextChar);
                                             ParseState = State.Recover;
-                                            if (++NumErrors >= MaxErrors)
-                                            {
-                                                throw new MaxErrorsException();
-                                            }
+                                            NumErrors++;
                                         }
                                         break;
                                     }
@@ -1084,10 +1054,7 @@ namespace TagParser
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
                                             Stream.Pushback(nextChar);
                                             ParseState = State.Recover;
-                                            if (++NumErrors >= MaxErrors)
-                                            {
-                                                throw new MaxErrorsException();
-                                            }
+                                            NumErrors++;
                                         }
                                         break;
                                     }
@@ -1181,10 +1148,7 @@ namespace TagParser
                                             Stream.Pushback(buffer.ToString());
                                             buffer = new StringBuilder();
                                             ParseState = State.Recover;
-                                            if (++NumErrors >= MaxErrors)
-                                            {
-                                                throw new MaxErrorsException();
-                                            }
+                                            NumErrors++;
                                         }
                                         break;
                                     }
@@ -1198,10 +1162,7 @@ namespace TagParser
                                             Stream.Pushback(buffer.ToString());
                                             buffer = new StringBuilder();
                                             ParseState = State.Recover;
-                                            if (++NumErrors >= MaxErrors)
-                                            {
-                                                throw new MaxErrorsException();
-                                            }
+                                            NumErrors++;
                                         }
                                         break;
                                     }
@@ -1310,8 +1271,7 @@ namespace TagParser
                                         Log.Error(GetEdgeUnknownErrorMessage(nextChar, ParseState));
                                         Stream.Pushback(nextChar);
                                         ParseState = State.Recover;
-                                        if (++NumErrors >= MaxErrors)
-                                            throw new MaxErrorsException();
+                                        NumErrors++;
                                         break;
                                     }
                             }
@@ -1619,10 +1579,7 @@ namespace TagParser
                                             Stream.Pushback(attribute.ToString());
                                             attribute = new StringBuilder();
                                             ParseState = State.Recover;
-                                            if (++NumErrors >= MaxErrors)
-                                            {
-                                                throw new MaxErrorsException();
-                                            }
+                                            NumErrors++;
                                         }
                                         break;
                                     }
@@ -1654,10 +1611,7 @@ namespace TagParser
                                         Log.Error(GetEdgeUnknownErrorMessage(nextChar, ParseState));
                                         Stream.Pushback(nextChar);
                                         ParseState = State.Recover;
-                                        if (++NumErrors >= MaxErrors)
-                                        {
-                                            throw new MaxErrorsException();
-                                        }
+                                        NumErrors++;
                                         break;
                                     }
                             }
@@ -1704,10 +1658,7 @@ namespace TagParser
                                             Stream.Pushback(attribute.ToString());
                                             attribute = new StringBuilder();
                                             ParseState = State.Recover;
-                                            if (++NumErrors >= MaxErrors)
-                                            {
-                                                throw new MaxErrorsException();
-                                            }
+                                            NumErrors++;
                                         }
                                         break;
                                     }
@@ -1762,10 +1713,7 @@ namespace TagParser
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
                                             Stream.Pushback(nextChar);
                                             ParseState = State.Recover;
-                                            if (++NumErrors >= MaxErrors)
-                                            {
-                                                throw new MaxErrorsException();
-                                            }
+                                            NumErrors++;
                                         }
                                         break;
                                     }
@@ -1811,10 +1759,7 @@ namespace TagParser
                                             Stream.Pushback(value.ToString());
                                             value = new StringBuilder();
                                             ParseState = State.Recover;
-                                            if (++NumErrors >= MaxErrors)
-                                            {
-                                                throw new MaxErrorsException();
-                                            }
+                                            NumErrors++;
                                         }
                                         break;
                                     }
