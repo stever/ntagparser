@@ -245,35 +245,22 @@ namespace TagFormattedDocumentParser
         /// <summary>
         /// Flag for tag and attribute name case-sensitivity.
         /// </summary>
-        private bool caseSensitive;
+        public bool CaseSensitive
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Constructor for TagParser.
         /// </summary>
         /// <param name="stream">Character stream reader.</param>
-        public TagParser(ParseReader stream)
+        public TagParser(ParseReader stream, bool caseSensitive)
             : base(stream)
         {
+            CaseSensitive = caseSensitive;
             entities = new Dictionary<string, string> { { "amp", "&" }, { "nbsp", " " }, { "quot", "\"" } };
             Log.Debug("Constructed TagParser");
-        }
-
-        /// <summary>
-        /// Getter for case-sensitivity option property.
-        /// </summary>
-        /// <returns>True if case-sensitive option on.</returns>
-        public bool IsCaseSensitive()
-        {
-            return caseSensitive;
-        }
-
-        /// <summary>
-        /// Setter for case-sensitivity option property.
-        /// </summary>
-        /// <param name="caseSensitive">Option to regulate case sensitivity.</param>
-        public void IsCaseSensitive(bool caseSensitive)
-        {
-            this.caseSensitive = caseSensitive;
         }
 
         /// <summary>
@@ -523,7 +510,7 @@ namespace TagFormattedDocumentParser
                                 case '>':
                                     {
                                         string tagname = buffer.ToString();
-                                        Tag tag = new Tag(tagname, caseSensitive);
+                                        Tag tag = new Tag(tagname, CaseSensitive);
                                         ParseState = tagname.ToLower().Equals("script") ? State.Script1 : State.Initial;
                                         return new TagToken(tag);
                                     }
@@ -577,7 +564,7 @@ namespace TagFormattedDocumentParser
                                 case '>':
                                     {
                                         string tagname = buffer.ToString();
-                                        Tag tag = new Tag(tagname, caseSensitive);
+                                        Tag tag = new Tag(tagname, CaseSensitive);
                                         ParseState = tagname.ToLower().Equals("script") ? State.Script1 : State.Initial;
                                         return new TagToken(tag);
                                     }
@@ -977,7 +964,7 @@ namespace TagFormattedDocumentParser
                                 case '>':
                                     {
                                         string tagname = buffer.ToString();
-                                        Tag tag = new Tag(tagname, caseSensitive);
+                                        Tag tag = new Tag(tagname, CaseSensitive);
                                         ParseState = tagname.ToLower().Equals("script") ? State.Script1 : State.Initial;
                                         return new TagToken(tag);
                                     }
@@ -1015,7 +1002,7 @@ namespace TagFormattedDocumentParser
                                 case '>':
                                     {
                                         ParseState = State.Initial;
-                                        Tag tag = new Tag(buffer.ToString(), caseSensitive);
+                                        Tag tag = new Tag(buffer.ToString(), CaseSensitive);
                                         return new TagToken(tag);
                                     }
 
@@ -1587,7 +1574,7 @@ namespace TagFormattedDocumentParser
         {
             Log.Debug("Entering getTag()");
 
-            Tag tag = new Tag(name, caseSensitive);
+            Tag tag = new Tag(name, CaseSensitive);
             StringBuilder attribute = new StringBuilder();
             StringBuilder value = new StringBuilder();
 
