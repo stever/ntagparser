@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace TagParser
+namespace TagFormattedDocumentParser
 {
     public abstract class Parser
     {

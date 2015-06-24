@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace TagParser.Tokens
+namespace TagFormattedDocumentParser.Tokens
 {
     public class CharacterEntityToken : ParseToken
     {

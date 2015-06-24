@@ -1,4 +1,4 @@
-namespace TagParser.Tokens
+namespace TagFormattedDocumentParser.Tokens
 {
     public class NewlineToken : ParseToken
     {

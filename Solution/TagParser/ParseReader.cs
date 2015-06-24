@@ -3,7 +3,7 @@ using System.IO;
 using System.Reflection;
 using log4net;
 
-namespace TagParser
+namespace TagFormattedDocumentParser
 {
     /// <summary>
     /// This class provides the character input stream to the Parser class.

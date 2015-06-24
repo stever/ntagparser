@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using log4net;
 
-namespace TagParser
+namespace TagFormattedDocumentParser
 {
     /// <summary>
     /// This class is used to store instances of tags found within a parsed document.
@@ -51,7 +51,7 @@ namespace TagParser
             // See: http://www.w3.org/TR/2000/REC-xml-20001006#NT-Name
 
             // Check the first character here.
-            if (!TagFormattedDocumentParser.IsNameFirstChar(name[0]))
+            if (!TagParser.IsNameFirstChar(name[0]))
             {
                 Log.ErrorFormat("Attribute ignored due to invalid name char: {0}", name[0]);
                 return false;
@@ -60,7 +60,7 @@ namespace TagParser
             // Check the other characters in the name.
             for (int i = 1; i < name.Length; i++)
             {
-                if (!TagFormattedDocumentParser.IsNameFirstChar(name[i]))
+                if (!TagParser.IsNameFirstChar(name[i]))
                 {
                     Log.ErrorFormat("Attribute ignored due to invalid name char: {0}", name[i]);
                     return false;

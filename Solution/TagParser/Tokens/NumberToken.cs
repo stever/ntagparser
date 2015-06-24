@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text;
 
-namespace TagParser.Tokens
+namespace TagFormattedDocumentParser.Tokens
 {
     public class NumberToken : ParseToken
     {

@@ -7,7 +7,7 @@
     <ProjectGuid>{C4A2FFE8-03A2-45D8-BAA7-D8FEC7753550}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TagParser</RootNamespace>
+    <RootNamespace>TagFormattedDocumentParser</RootNamespace>
     <AssemblyName>TagParser</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -43,7 +43,7 @@
     <Compile Include="ParseReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tag.cs" />
-    <Compile Include="TagFormattedDocumentParser.cs" />
+    <Compile Include="TagParser.cs" />
     <Compile Include="Tokens\CDataToken.cs" />
     <Compile Include="Tokens\CharacterEntityToken.cs" />
     <Compile Include="Tokens\CommentToken.cs" />

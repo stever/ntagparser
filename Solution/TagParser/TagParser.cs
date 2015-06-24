@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
-using TagParser.Tokens;
+using TagFormattedDocumentParser.Tokens;
 using log4net;
 
-namespace TagParser
+namespace TagFormattedDocumentParser
 {
-    public class TagFormattedDocumentParser : Parser
+    public class TagParser : Parser
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -251,7 +251,7 @@ namespace TagParser
         /// Constructor for TagParser.
         /// </summary>
         /// <param name="stream">Character stream reader.</param>
-        public TagFormattedDocumentParser(ParseReader stream)
+        public TagParser(ParseReader stream)
             : base(stream)
         {
             entities = new Dictionary<string, string> { { "amp", "&" }, { "nbsp", " " }, { "quot", "\"" } };
