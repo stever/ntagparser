@@ -292,8 +292,6 @@ namespace TagParser
             int c;
             while ((c = Stream.Read()) != -1)
             {
-                Log.DebugFormat("c = {0}", c);
-
                 char nextChar = (char)c;
                 switch (ParseState)
                 {
