@@ -104,8 +104,9 @@ namespace TagParser
         /// <param name="str">String to push back into the stream.</param>
         public void Pushback(string str)
         {
+            if (string.IsNullOrEmpty(str)) return;
             Log.InfoFormat("Pushback string: \"{0}\"", str);
-            for (int i = str.Length - 1; i > -1; i--)
+            for (int i = str.Length - 1; i >= 0; i--)
                 _pushbackQueue.Push(str[i]);
         }
 

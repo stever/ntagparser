@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using System.Text;
 using TagParser.Tokens;
@@ -502,9 +503,14 @@ namespace TagParser
                                         else
                                         {
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
+
+                                            Debug.Assert(buffer.Length == 0);
+
                                             Stream.Pushback(nextChar);
-                                            ParseState = State.Recover;
+                                            Stream.Pushback('<');
+
                                             NumErrors++;
+                                            ParseState = State.Recover;
                                         }
                                         break;
                                     }
@@ -550,9 +556,15 @@ namespace TagParser
                                         else
                                         {
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
+
                                             Stream.Pushback(nextChar);
-                                            ParseState = State.Recover;
+                                            Stream.Pushback(buffer.ToString());
+                                            Stream.Pushback('<');
+
                                             NumErrors++;
+                                            ParseState = State.Recover;
+
+                                            buffer = new StringBuilder();
                                         }
                                         break;
                                     }
@@ -585,9 +597,14 @@ namespace TagParser
                                     {
                                         // Report unknown transition path as an error.
                                         Log.Error(GetEdgeUnknownErrorMessage(nextChar, ParseState));
+
+                                        Debug.Assert(buffer.Length == 0);
+
                                         Stream.Pushback(nextChar);
-                                        ParseState = State.Recover;
+                                        Stream.Pushback('<');
+
                                         NumErrors++;
+                                        ParseState = State.Recover;
                                         break;
                                     }
                             }
@@ -649,7 +666,6 @@ namespace TagParser
 
                                 default:
                                     {
-
                                         // Normally only accept valid name characters.
                                         if (IsNameChar(nextChar))
                                         {
@@ -658,7 +674,6 @@ namespace TagParser
                                         }
                                         else
                                         {
-
                                             // A common error in hand-written HTML is to omit ';' at end of an entity reference.
                                             // HTML correction depends on whether or not the entity is recognised.
                                             // In any case the error will be handled and a warning message will be logged.
@@ -724,9 +739,15 @@ namespace TagParser
                                     {
                                         // Unknown transition path from this state
                                         Log.Error(GetEdgeUnknownErrorMessage(nextChar, ParseState));
+
                                         Stream.Pushback(nextChar);
+                                        Stream.Pushback(buffer.ToString());
+                                        Stream.Pushback("&#");
+
+                                        NumErrors++;
                                         ParseState = State.Recover;
-                                        NumErrors++; 
+
+                                        buffer = new StringBuilder();
                                         break;
                                     }
                             }
@@ -772,7 +793,6 @@ namespace TagParser
 
                                 default:
                                     {
-
                                         // A common error in hand-written HTML is to omit ';' at end of an entity reference.
                                         // Pushback last character and resume parsing from initial state.
                                         Log.Debug(GetEdgeUnknownErrorMessage(nextChar, ParseState));
@@ -814,7 +834,6 @@ namespace TagParser
 
                                 default:
                                     {
-
                                         // A common error in hand-written HTML is to omit ';' at end of an entity reference.
                                         // Pushback last character and resume parsing from initial state.
                                         Log.Debug(GetEdgeUnknownErrorMessage(nextChar, ParseState));
@@ -854,9 +873,14 @@ namespace TagParser
                                         else
                                         {
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
+
+                                            Debug.Assert(buffer.Length == 0);
+
                                             Stream.Pushback(nextChar);
-                                            ParseState = State.Recover;
+                                            Stream.Pushback("<!");
+
                                             NumErrors++;
+                                            ParseState = State.Recover;
                                         }
                                         break;
                                     }
@@ -878,9 +902,9 @@ namespace TagParser
                                     {
                                         // Unknown transition path from this state
                                         Log.Error(GetEdgeUnknownErrorMessage(nextChar, ParseState));
-                                        Stream.Pushback(nextChar);
-                                        ParseState = State.Recover;
+
                                         NumErrors++;
+                                        ParseState = State.Recover;
                                         break;
                                     }
                             }
@@ -970,9 +994,15 @@ namespace TagParser
                                         else
                                         {
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
+
                                             Stream.Pushback(nextChar);
-                                            ParseState = State.Recover;
+                                            Stream.Pushback(buffer.ToString());
+                                            Stream.Pushback('<');
+
                                             NumErrors++;
+                                            ParseState = State.Recover;
+
+                                            buffer = new StringBuilder();
                                         }
                                         break;
                                     }
@@ -1000,9 +1030,15 @@ namespace TagParser
                                         else
                                         {
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
+
                                             Stream.Pushback(nextChar);
-                                            ParseState = State.Recover;
+                                            Stream.Pushback(buffer.ToString());
+                                            Stream.Pushback('<');
+
                                             NumErrors++;
+                                            ParseState = State.Recover;
+
+                                            buffer = new StringBuilder();
                                         }
                                         break;
                                     }
@@ -1020,9 +1056,15 @@ namespace TagParser
                             else
                             {
                                 Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
+
                                 Stream.Pushback(nextChar);
-                                ParseState = State.Recover;
+                                Stream.Pushback(buffer.ToString());
+                                Stream.Pushback("<![");
+
                                 NumErrors++;
+                                ParseState = State.Recover;
+
+                                buffer = new StringBuilder();
                             }
                             break;
                         }
@@ -1040,10 +1082,17 @@ namespace TagParser
                                         }
                                         else
                                         {
-                                            Log.Error("CData declaration expected");
+                                            Log.Error("CDATA declaration expected");
+
                                             Stream.Pushback(nextChar);
-                                            ParseState = State.Recover;
+                                            Stream.Pushback('[');
+                                            Stream.Pushback(buffer.ToString());
+                                            Stream.Pushback("<![");
+
                                             NumErrors++;
+                                            ParseState = State.Recover;
+
+                                            buffer = new StringBuilder();
                                         }
                                         break;
                                     }
@@ -1057,9 +1106,15 @@ namespace TagParser
                                         else
                                         {
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
+
                                             Stream.Pushback(nextChar);
-                                            ParseState = State.Recover;
+                                            Stream.Pushback(buffer.ToString());
+                                            Stream.Pushback("<![");
+
                                             NumErrors++;
+                                            ParseState = State.Recover;
+
+                                            buffer = new StringBuilder();
                                         }
                                         break;
                                     }
@@ -1133,7 +1188,6 @@ namespace TagParser
                                 case '\n':
                                 case '\r':
                                     {
-
                                         // Checking that the DTD name string is recognised.
                                         name = buffer.ToString();
                                         buffer = new StringBuilder();
@@ -1143,16 +1197,19 @@ namespace TagParser
                                             (name.ToUpper().Equals("ENTITY")) ||
                                             (name.ToUpper().Equals("NOTATION")))
                                         {
-
                                             ParseState = State.DTD2;
-
                                         }
                                         else
                                         {
                                             Log.ErrorFormat("Unrecognised DTD part \"{0}\"", name);
+
                                             Stream.Pushback(buffer.ToString());
-                                            ParseState = State.Recover;
+                                            Stream.Pushback("<!");
+
                                             NumErrors++;
+                                            ParseState = State.Recover;
+
+                                            buffer = new StringBuilder();
                                         }
                                         break;
                                     }
@@ -1163,9 +1220,14 @@ namespace TagParser
                                         if (!IsNameChar(nextChar))
                                         {
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
+
                                             Stream.Pushback(buffer.ToString());
-                                            ParseState = State.Recover;
+                                            Stream.Pushback("<!");
+
                                             NumErrors++;
+                                            ParseState = State.Recover;
+
+                                            buffer = new StringBuilder();
                                         }
                                         break;
                                     }
@@ -1272,9 +1334,18 @@ namespace TagParser
                                     {
                                         // Unknown transition path from this state.
                                         Log.Error(GetEdgeUnknownErrorMessage(nextChar, ParseState));
+
                                         Stream.Pushback(nextChar);
-                                        ParseState = State.Recover;
+                                        Stream.Pushback('?');
+                                        Stream.Pushback(buffer.ToString());
+                                        Stream.Pushback(' ');
+                                        Stream.Pushback(name);
+                                        Stream.Pushback("<?");
+
                                         NumErrors++;
+                                        ParseState = State.Recover;
+
+                                        buffer = new StringBuilder();
                                         break;
                                     }
                             }
@@ -1543,6 +1614,8 @@ namespace TagParser
                             switch (nextChar)
                             {
                                 case '>':
+                                    // TODO: Return GarbageToken instead?
+                                    // NOTE: Tag is not complete. Garbage has been discarded.
                                     return tag;
                             }
                             break;
@@ -1579,9 +1652,11 @@ namespace TagParser
                                         else
                                         {
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
+
                                             Stream.Pushback(attribute.ToString());
-                                            ParseState = State.Recover;
+
                                             NumErrors++;
+                                            ParseState = State.Recover;
 
                                             attribute = new StringBuilder();
                                         }
@@ -1613,9 +1688,11 @@ namespace TagParser
                                     {
                                         // Unknown transition path from this state
                                         Log.Error(GetEdgeUnknownErrorMessage(nextChar, ParseState));
+
                                         Stream.Pushback(nextChar);
-                                        ParseState = State.Recover;
+
                                         NumErrors++;
+                                        ParseState = State.Recover;
                                         break;
                                     }
                             }
@@ -1659,9 +1736,11 @@ namespace TagParser
                                         if (!IsNameChar(nextChar))
                                         {
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
+
                                             Stream.Pushback(attribute.ToString());
-                                            ParseState = State.Recover;
+
                                             NumErrors++;
+                                            ParseState = State.Recover;
 
                                             attribute = new StringBuilder();
                                         }
@@ -1716,9 +1795,11 @@ namespace TagParser
                                         else
                                         {
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
+
                                             Stream.Pushback(nextChar);
-                                            ParseState = State.Recover;
+
                                             NumErrors++;
+                                            ParseState = State.Recover;
                                         }
                                         break;
                                     }
@@ -1761,9 +1842,11 @@ namespace TagParser
                                         else
                                         {
                                             Log.Error(GetInvalidCharErrorMessage(nextChar, ParseState));
+
                                             Stream.Pushback(value.ToString());
-                                            ParseState = State.Recover;
+
                                             NumErrors++;
+                                            ParseState = State.Recover;
 
                                             value = new StringBuilder();
                                         }
