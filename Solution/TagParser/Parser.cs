@@ -1,5 +1,4 @@
 using System.Text;
-using TagParser.Tokens;
 
 namespace TagParser
 {
@@ -43,15 +42,6 @@ namespace TagParser
         public int CharCount
         {
             get { return Stream.CharCount; }
-        }
-
-        /// <summary>
-        /// The current stream checksum.
-        /// </summary>
-        /// <returns></returns>
-        public char Checksum
-        {
-            get { return Stream.Checksum; }
         }
 
         /// <summary>

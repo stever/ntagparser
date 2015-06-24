@@ -29,11 +29,6 @@ namespace TagParser
         private readonly Stack<int> _pushbackQueue;
 
         /// <summary>
-        /// Checksum on the raw data from the input stream.
-        /// </summary>
-        private char _checksum = (char)0;
-
-        /// <summary>
         /// The character count is simply used for keeping a note of the size of the document.
         /// </summary>
         private int _charCount;
@@ -135,14 +130,6 @@ namespace TagParser
         }
 
         /// <summary>
-        /// The current stream checksum.
-        /// </summary>
-        public char Checksum
-        {
-            get { return _checksum; }
-        }
-
-        /// <summary>
         /// This method reads a single character from the raw input stream.
         /// </summary>
         /// <returns>Next character from input.</returns>
@@ -164,9 +151,6 @@ namespace TagParser
 
                 // Count characters read.
                 _charCount++;
-
-                // Update the checkum.
-                UpdateChecksum((char)c);
             }
             return c;
         }
@@ -187,20 +171,6 @@ namespace TagParser
 
             Log.InfoFormat("Char: {0}", Parser.ToNamestring(nextChar));
             return nextChar;
-        }
-
-        /// <summary>
-        /// This method is used to update the checksum for the stream.
-        /// </summary>
-        /// <param name="nextChar">The next character on the input stream.</param>
-        private void UpdateChecksum(char nextChar)
-        {
-            // http://atlas.csd.net/~cgadd/knowbase/CRC0013.HTM
-            // xor char with the checksum
-            if (nextChar != -1)
-            {
-                _checksum ^= nextChar;
-            }
         }
     }
 }
