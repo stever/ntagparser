@@ -171,19 +171,19 @@ namespace TagParser
             }
         }
 
-        private State _state = State.Initial;
+        private State state = State.Initial;
 
         /// <summary>
         /// Parser machine state.
         /// </summary>
         private State ParseState
         {
-            get { return _state; }
+            get { return state; }
             set
             {
-                if (_state != value) Log.InfoFormat("Changing state {0} to {1} state.", _state, value);
-                else Log.WarnFormat("Changing to same state! ({0})", Description(_state));
-                _state = value;
+                if (state != value) Log.InfoFormat("Changing state {0} to {1} state.", state, value);
+                else Log.WarnFormat("Changing to same state! ({0})", Description(state));
+                state = value;
             }
         }
 
@@ -240,12 +240,12 @@ namespace TagParser
         /// <summary>
         /// Table of known entities and their text equivalents.
         /// </summary>
-        private readonly Dictionary<string, string> _entities;
+        private readonly Dictionary<string, string> entities;
 
         /// <summary>
         /// Flag for tag and attribute name case-sensitivity.
         /// </summary>
-        private bool _caseSensitive;
+        private bool caseSensitive;
 
         /// <summary>
         /// Constructor for TagParser.
@@ -254,7 +254,7 @@ namespace TagParser
         public TagFormattedDocumentParser(ParseReader stream)
             : base(stream)
         {
-            _entities = new Dictionary<string, string> { { "amp", "&" }, { "nbsp", " " }, { "quot", "\"" } };
+            entities = new Dictionary<string, string> { { "amp", "&" }, { "nbsp", " " }, { "quot", "\"" } };
             Log.Debug("Constructed TagParser");
         }
 
@@ -264,7 +264,7 @@ namespace TagParser
         /// <returns>True if case-sensitive option on.</returns>
         public bool IsCaseSensitive()
         {
-            return _caseSensitive;
+            return caseSensitive;
         }
 
         /// <summary>
@@ -273,7 +273,7 @@ namespace TagParser
         /// <param name="caseSensitive">Option to regulate case sensitivity.</param>
         public void IsCaseSensitive(bool caseSensitive)
         {
-            _caseSensitive = caseSensitive;
+            this.caseSensitive = caseSensitive;
         }
 
         /// <summary>
@@ -523,7 +523,7 @@ namespace TagParser
                                 case '>':
                                     {
                                         string tagname = buffer.ToString();
-                                        Tag tag = new Tag(tagname, _caseSensitive);
+                                        Tag tag = new Tag(tagname, caseSensitive);
                                         ParseState = tagname.ToLower().Equals("script") ? State.Script1 : State.Initial;
                                         return new TagToken(tag);
                                     }
@@ -577,7 +577,7 @@ namespace TagParser
                                 case '>':
                                     {
                                         string tagname = buffer.ToString();
-                                        Tag tag = new Tag(tagname, _caseSensitive);
+                                        Tag tag = new Tag(tagname, caseSensitive);
                                         ParseState = tagname.ToLower().Equals("script") ? State.Script1 : State.Initial;
                                         return new TagToken(tag);
                                     }
@@ -977,7 +977,7 @@ namespace TagParser
                                 case '>':
                                     {
                                         string tagname = buffer.ToString();
-                                        Tag tag = new Tag(tagname, _caseSensitive);
+                                        Tag tag = new Tag(tagname, caseSensitive);
                                         ParseState = tagname.ToLower().Equals("script") ? State.Script1 : State.Initial;
                                         return new TagToken(tag);
                                     }
@@ -1015,7 +1015,7 @@ namespace TagParser
                                 case '>':
                                     {
                                         ParseState = State.Initial;
-                                        Tag tag = new Tag(buffer.ToString(), _caseSensitive);
+                                        Tag tag = new Tag(buffer.ToString(), caseSensitive);
                                         return new TagToken(tag);
                                     }
 
@@ -1587,7 +1587,7 @@ namespace TagParser
         {
             Log.Debug("Entering getTag()");
 
-            Tag tag = new Tag(name, _caseSensitive);
+            Tag tag = new Tag(name, caseSensitive);
             StringBuilder attribute = new StringBuilder();
             StringBuilder value = new StringBuilder();
 
@@ -1977,7 +1977,7 @@ namespace TagParser
         /// <returns>Decoded entity, or null if entity unknown.</returns>
         private string DecodeEntity(string entity)
         {
-            return _entities.ContainsKey(entity) ? _entities[entity] : null;
+            return entities.ContainsKey(entity) ? entities[entity] : null;
         }
 
         /// <summary>
