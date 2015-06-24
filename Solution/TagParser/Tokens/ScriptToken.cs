@@ -4,28 +4,28 @@ namespace TagParser.Tokens
 {
     public class ScriptToken : ParseToken
     {
-        private readonly string _script;
+        private readonly string script;
 
         public ScriptToken(string script)
         {
-            _script = script;
+            this.script = script;
         }
 
         public string Script
         {
-            get { return _script; }
+            get { return script; }
         }
 
         public new string ToString()
         {
             StringBuilder result = new StringBuilder();
-            result.Append("Script: ").Append(_script);
+            result.Append("Script: ").Append(script);
             return result.ToString();
         }
 
         public override string Render()
         {
-            return _script;
+            return script;
         }
     }
 }

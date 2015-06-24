@@ -4,29 +4,29 @@ namespace TagParser.Tokens
 {
     public class CDataToken : ParseToken
     {
-        private readonly string _data;
+        private readonly string data;
 
         public CDataToken(string data)
         {
-            _data = data;
+            this.data = data;
         }
 
         public string Data
         {
-            get { return _data; }
+            get { return data; }
         }
 
         public override string ToString()
         {
             StringBuilder result = new StringBuilder();
-            result.Append("CDATA: ").Append(_data);
+            result.Append("CDATA: ").Append(data);
             return result.ToString();
         }
 
         public override string Render()
         {
             StringBuilder result = new StringBuilder();
-            result.Append("<![CDATA[").Append(_data).Append("]]>");
+            result.Append("<![CDATA[").Append(data).Append("]]>");
             return result.ToString();
         }
     }

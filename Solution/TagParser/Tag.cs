@@ -14,8 +14,8 @@ namespace TagParser
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly string _name;
-        private readonly bool _caseSensitive;
+        private readonly string name;
+        private readonly bool caseSensitive;
 
         public readonly Dictionary<string, Attribute> Attributes = new Dictionary<string, Attribute>();
 
@@ -27,8 +27,8 @@ namespace TagParser
         public Tag(string name, bool caseSensitive)
         {
             if (!caseSensitive) name = name.ToLower();
-            _caseSensitive = caseSensitive;
-            _name = name;
+            this.caseSensitive = caseSensitive;
+            this.name = name;
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace TagParser
         /// </summary>
         public string Name
         {
-            get { return _name; }
+            get { return name; }
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace TagParser
         /// </summary>
         public bool IsCaseSensitive
         {
-            get { return _caseSensitive; }
+            get { return caseSensitive; }
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace TagParser
         /// </summary>
         public bool IsEndTag
         {
-            get { return _name[0] == '/'; }
+            get { return name[0] == '/'; }
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace TagParser
         public void AddAttribute(string name, string value)
         {
             if (!IsValidName(name)) return;
-            if (!_caseSensitive) name = name.ToLower();
+            if (!caseSensitive) name = name.ToLower();
 
             // Make sure the attribute value doesn't contain invalid characters.
             if (value != null)
@@ -147,7 +147,7 @@ namespace TagParser
         /// <returns>The attribute class instance.</returns>
         public Attribute GetAttribute(string name)
         {
-            if (!_caseSensitive) name = name.ToLower();
+            if (!caseSensitive) name = name.ToLower();
             return Attributes[name];
         }
 
@@ -158,7 +158,7 @@ namespace TagParser
         /// <returns>String value of the attribute.</returns>
         public string GetAttributeValue(string name)
         {
-            if (!_caseSensitive) name = name.ToLower();
+            if (!caseSensitive) name = name.ToLower();
             Attribute attrib = Attributes[name];
             return attrib == null ? null : attrib.Value;
         }
@@ -192,7 +192,7 @@ namespace TagParser
             result.Append('<');
 
             // Tag or element name.
-            result.Append(_name);
+            result.Append(name);
 
             // Attributes
             if (Attributes != null)
@@ -236,7 +236,7 @@ namespace TagParser
                 else
                 {
                     result.Append("><!--").Append(comment).Append("-->");
-                    result.Append("</").Append(_name).Append('>');
+                    result.Append("</").Append(name).Append('>');
                 }
             }
 

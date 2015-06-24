@@ -16,32 +16,32 @@ namespace TagParser
         /// <summary>
         /// Optional filename or URL to identify the stream.
         /// </summary>
-        private readonly string _filename;
+        private readonly string filename;
 
         /// <summary>
         /// Input stream reader
         /// </summary>
-        private readonly TextReader _stream;
+        private readonly TextReader stream;
 
         /// <summary>
         /// Pushback queue is used to push characters back onto input stream to be re-parsed.
         /// </summary>
-        private readonly Stack<int> _pushbackQueue;
+        private readonly Stack<int> pushbackQueue;
 
         /// <summary>
         /// The character count is simply used for keeping a note of the size of the document.
         /// </summary>
-        private int _charCount;
+        private int charCount;
 
         /// <summary>
         /// The column number is used in reporting errors.
         /// </summary>
-        private int _columnNumber;
+        private int columnNumber;
 
         /// <summary>
         /// The line number is used in reporting errors.
         /// </summary>
-        private int _lineNumber = 1;
+        private int lineNumber = 1;
 
         /// <summary>
         /// Constructor using a content string.
@@ -49,8 +49,8 @@ namespace TagParser
         /// <param name="text">Content string.</param>
         public ParseReader(string text)
         {
-            _stream = new StringReader(text);
-            _pushbackQueue = new Stack<int>();
+            stream = new StringReader(text);
+            pushbackQueue = new Stack<int>();
         }
 
         /// <summary>
@@ -59,8 +59,8 @@ namespace TagParser
         /// <param name="reader">The character input stream.</param>
         public ParseReader(TextReader reader)
         {
-            _stream = reader;
-            _pushbackQueue = new Stack<int>();
+            stream = reader;
+            pushbackQueue = new Stack<int>();
         }
 
         /// <summary>
@@ -70,9 +70,9 @@ namespace TagParser
         /// <param name="filename">Optional filename or URL to identify the stream.</param>
         public ParseReader(TextReader reader, string filename)
         {
-            _stream = reader;
-            _filename = filename;
-            _pushbackQueue = new Stack<int>();
+            stream = reader;
+            this.filename = filename;
+            pushbackQueue = new Stack<int>();
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace TagParser
         /// </summary>
         public string Filename
         {
-            get { return _filename; }
+            get { return filename; }
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace TagParser
         public void Pushback(char c)
         {
             Log.InfoFormat("Pushback Char: '{0}'", c);
-            _pushbackQueue.Push(c);
+            pushbackQueue.Push(c);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace TagParser
             if (string.IsNullOrEmpty(str)) return;
             Log.InfoFormat("Pushback string: \"{0}\"", str);
             for (int i = str.Length - 1; i >= 0; i--)
-                _pushbackQueue.Push(str[i]);
+                pushbackQueue.Push(str[i]);
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace TagParser
         /// </summary>
         public int LineNumber
         {
-            get { return _lineNumber; }
+            get { return lineNumber; }
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace TagParser
         /// </summary>
         public int ColumnNumber
         {
-            get { return _columnNumber; }
+            get { return columnNumber; }
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace TagParser
         /// </summary>
         public int CharCount
         {
-            get { return _charCount; }
+            get { return charCount; }
         }
 
         /// <summary>
@@ -135,22 +135,22 @@ namespace TagParser
         /// <returns>Next character from input.</returns>
         private int RawRead()
         {
-            int c = _stream.Read();
+            int c = stream.Read();
             if (c != -1)
             {
                 // Count new lines and track column position.
                 if (c == '\n')
                 {
-                    _lineNumber += 1;
-                    _columnNumber = 0;
+                    lineNumber += 1;
+                    columnNumber = 0;
                 }
                 else
                 {
-                    _columnNumber++;
+                    columnNumber++;
                 }
 
                 // Count characters read.
-                _charCount++;
+                charCount++;
             }
             return c;
         }
@@ -165,7 +165,7 @@ namespace TagParser
             do
             {
                 // Pop last character on the queue if there are items pushed-back.
-                nextChar = _pushbackQueue.Count > 0 ? _pushbackQueue.Pop() : RawRead();
+                nextChar = pushbackQueue.Count > 0 ? pushbackQueue.Pop() : RawRead();
 
             } while (nextChar == '\r'); // Ignore linefeed.
 

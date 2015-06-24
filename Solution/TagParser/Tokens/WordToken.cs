@@ -4,23 +4,23 @@ namespace TagParser.Tokens
 {
     public class WordToken : ParseToken
     {
-        private readonly string _word;
+        private readonly string word;
 
         public WordToken(string word)
         {
-            _word = word;
+            this.word = word;
         }
 
         public string Word
         {
-            get { return _word; }
+            get { return word; }
         }
 
         public new string ToString()
         {
             StringBuilder result = new StringBuilder();
             result.Append("Word: ");
-            result.Append(WithQuotes(_word));
+            result.Append(WithQuotes(word));
             return result.ToString();
         }
 
@@ -35,7 +35,7 @@ namespace TagParser.Tokens
 
         public override string Render()
         {
-            return _word;
+            return word;
         }
     }
 }

@@ -4,24 +4,24 @@ namespace TagParser.Tokens
 {
     public class SpacesToken : ParseToken
     {
-        private readonly string _spaces;
+        private readonly string spaces;
 
         public SpacesToken(string spaces)
         {
-            _spaces = spaces;
+            this.spaces = spaces;
         }
 
         public string Spaces
         {
-            get { return _spaces; }
+            get { return spaces; }
         }
 
         public new string ToString()
         {
             StringBuilder result = new StringBuilder();
             result.Append("Spaces: ");
-            result.Append(_spaces.Length == 1 ? '\'' : '"');
-            foreach (char c in _spaces)
+            result.Append(spaces.Length == 1 ? '\'' : '"');
+            foreach (char c in spaces)
             {
                 switch (c)
                 {
@@ -42,13 +42,13 @@ namespace TagParser.Tokens
                         break;
                 }
             }
-            result.Append(_spaces.Length == 1 ? '\'' : '"');
+            result.Append(spaces.Length == 1 ? '\'' : '"');
             return result.ToString();
         }
 
         public override string Render()
         {
-            return _spaces;
+            return spaces;
         }
     }
 }

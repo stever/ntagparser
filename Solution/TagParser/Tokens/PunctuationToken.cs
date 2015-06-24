@@ -5,28 +5,28 @@ namespace TagParser.Tokens
 {
     public class PunctuationToken : ParseToken
     {
-        private readonly char _character;
+        private readonly char character;
 
         public PunctuationToken(char c)
         {
-            _character = c;
+            character = c;
         }
 
         public char Character
         {
-            get { return _character; }
+            get { return character; }
         }
 
         public new string ToString()
         {
             StringBuilder result = new StringBuilder();
-            result.Append("Punctuation: ").Append(_character);
+            result.Append("Punctuation: ").Append(character);
             return result.ToString();
         }
 
         public override string Render()
         {
-            return _character.ToString(CultureInfo.InvariantCulture);
+            return character.ToString(CultureInfo.InvariantCulture);
         }
     }
 }

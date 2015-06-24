@@ -4,36 +4,36 @@ namespace TagParser.Tokens
 {
     public class ProcessingInstructionToken : ParseToken
     {
-        private readonly string _target;
-        private readonly string _data;
+        private readonly string target;
+        private readonly string data;
 
         public ProcessingInstructionToken(string target, string data)
         {
-            _target = target;
-            _data = data;
+            this.target = target;
+            this.data = data;
         }
 
         public string Target
         {
-            get { return _target; }
+            get { return target; }
         }
 
         public string Data
         {
-            get { return _data; }
+            get { return data; }
         }
 
         public new string ToString()
         {
             StringBuilder result = new StringBuilder();
-            result.Append("PI: ").Append(_target).Append(' ').Append(_data);
+            result.Append("PI: ").Append(target).Append(' ').Append(data);
             return result.ToString();
         }
 
         public override string Render()
         {
             StringBuilder result = new StringBuilder();
-            result.Append("<?").Append(_target).Append(' ').Append(_data).Append("?>");
+            result.Append("<?").Append(target).Append(' ').Append(data).Append("?>");
             return result.ToString();
         }
     }

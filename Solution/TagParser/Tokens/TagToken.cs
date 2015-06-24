@@ -4,29 +4,29 @@ namespace TagParser.Tokens
 {
     public class TagToken : ParseToken
     {
-        private Tag _tag;
+        private Tag tag;
 
         public TagToken(Tag tag)
         {
-            _tag = tag;
+            this.tag = tag;
         }
 
         public Tag Tag
         {
-            get { return _tag; }
-            set { _tag = value; }
+            get { return tag; }
+            set { tag = value; }
         }
 
         public new string ToString()
         {
             StringBuilder result = new StringBuilder();
-            result.Append("Tag: ").Append(_tag);
+            result.Append("Tag: ").Append(tag);
             return result.ToString();
         }
 
         public override string Render()
         {
-            return _tag.ToString();
+            return tag.ToString();
         }
     }
 }

@@ -5,28 +5,28 @@ namespace TagParser.Tokens
 {
     public class NumberToken : ParseToken
     {
-        private readonly long _number;
+        private readonly long number;
 
         public NumberToken(long number)
         {
-            _number = number;
+            this.number = number;
         }
 
         public long Number
         {
-            get { return _number; }
+            get { return number; }
         }
 
         public new string ToString()
         {
             StringBuilder result = new StringBuilder();
-            result.Append("Number: ").Append(_number);
+            result.Append("Number: ").Append(number);
             return result.ToString();
         }
 
         public override string Render()
         {
-            return _number.ToString(CultureInfo.InvariantCulture);
+            return number.ToString(CultureInfo.InvariantCulture);
         }
     }
 }

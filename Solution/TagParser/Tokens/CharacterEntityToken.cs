@@ -5,39 +5,39 @@ namespace TagParser.Tokens
 {
     public class CharacterEntityToken : ParseToken
     {
-        private readonly char _char;
+        private readonly char character;
 
         public CharacterEntityToken(string hex)
         {
-            _char = (char)Convert.ToInt32(hex, 16);
+            character = (char)Convert.ToInt32(hex, 16);
         }
 
         public CharacterEntityToken(int value)
         {
-            _char = (char)value;
+            character = (char)value;
         }
 
         public CharacterEntityToken(char c)
         {
-            _char = c;
+            character = c;
         }
 
         public char Character
         {
-            get { return _char; }
+            get { return character; }
         }
 
         public override string ToString()
         {
             StringBuilder result = new StringBuilder();
-            result.Append("Char Entity: ").Append(Parser.ToNamestring(_char));
+            result.Append("Char Entity: ").Append(Parser.ToNamestring(character));
             return result.ToString();
         }
 
         public override string Render()
         {
             StringBuilder result = new StringBuilder();
-            result.Append("&#").Append((int)_char).Append(";");
+            result.Append("&#").Append((int)character).Append(";");
             return result.ToString();
         }
     }
