@@ -215,7 +215,7 @@ namespace TagParser
                     {
                         result.Append('=');
                         result.Append('"');
-                        result.Append(escapeAttribute(attrib.Value));
+                        result.Append(EscapeAttribute(attrib.Value));
                         result.Append('"');
                     }
                 }
@@ -249,7 +249,7 @@ namespace TagParser
         /// </summary>
         /// <param name="value">Attribute value to process.</param>
         /// <returns>Attribute value with escaped '&' as may be required.</returns>
-        private string escapeAttribute(string value)
+        private static string EscapeAttribute(string value)
         {
             if (value != null)
             {
