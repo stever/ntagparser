@@ -19,14 +19,14 @@ namespace TagParser.Tokens
         public override string ToString()
         {
             StringBuilder result = new StringBuilder();
-            result.Append("CData: ").Append(_data);
+            result.Append("CDATA: ").Append(_data);
             return result.ToString();
         }
 
         public override string Render()
         {
             StringBuilder result = new StringBuilder();
-            result.Append("<![CData[").Append(_data).Append("]]>");
+            result.Append("<![CDATA[").Append(_data).Append("]]>");
             return result.ToString();
         }
     }
