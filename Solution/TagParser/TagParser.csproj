@@ -43,7 +43,7 @@
     <Compile Include="ParseReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tag.cs" />
-    <Compile Include="TagParser.cs" />
+    <Compile Include="TagFormattedDocumentParser.cs" />
     <Compile Include="Tokens\CDataToken.cs" />
     <Compile Include="Tokens\CharacterEntityToken.cs" />
     <Compile Include="Tokens\CommentToken.cs" />

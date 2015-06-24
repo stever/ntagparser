@@ -8,7 +8,7 @@ using log4net;
 
 namespace TagParser
 {
-    public class TagParser : Parser
+    public class TagFormattedDocumentParser : Parser
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -251,7 +251,7 @@ namespace TagParser
         /// Constructor for TagParser.
         /// </summary>
         /// <param name="stream">Character stream reader.</param>
-        public TagParser(ParseReader stream)
+        public TagFormattedDocumentParser(ParseReader stream)
             : base(stream)
         {
             _entities = new Dictionary<string, string> { { "amp", "&" }, { "nbsp", " " }, { "quot", "\"" } };
