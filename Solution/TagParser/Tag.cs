@@ -81,7 +81,10 @@ namespace TagParsing
         /// </summary>
         public string Name
         {
-            get { return name; }
+            get
+            {
+                return IsEndTag ? name.Substring(1) : name;
+            }
         }
 
         /// <summary>
