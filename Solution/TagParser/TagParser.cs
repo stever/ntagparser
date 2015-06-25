@@ -54,16 +54,7 @@ namespace TagParsing
             CDATA2,
             CDATA3,
             CDATA4,
-            CDATA5,
-            Script1,            // New state for collecting content of the SCRIPT element.
-            Script2,
-            Script3,
-            Script4,
-            Script5,
-            Script6,
-            Script7,
-            Script8,
-            Script9,
+            CDATA5
         }
 
         private static string Description(State state)
@@ -148,24 +139,6 @@ namespace TagParsing
                     return "CData exit-sequence A";
                 case State.CDATA5:
                     return "CData exit-sequence B";
-                case State.Script1:
-                    return "Script element content";
-                case State.Script2:
-                    return "Script escape step 1 ('<')";
-                case State.Script3:
-                    return "Script escape step 2 ('/')";
-                case State.Script4:
-                    return "Script escape step 3 ('s')";
-                case State.Script5:
-                    return "Script escape step 4 ('c')";
-                case State.Script6:
-                    return "Script escape step 5 ('r')";
-                case State.Script7:
-                    return "Script escape step 6 ('i')";
-                case State.Script8:
-                    return "Script escape step 7 ('p')";
-                case State.Script9:
-                    return "Script escape step 8 ('t')";
                 default:
                     throw new Exception("Unexpected case");
             }
@@ -511,7 +484,7 @@ namespace TagParsing
                                     {
                                         string tagname = buffer.ToString();
                                         Tag tag = new Tag(tagname, CaseSensitive);
-                                        ParseState = tagname.ToLower().Equals("script") ? State.Script1 : State.Initial;
+                                        ParseState = State.Initial;
                                         return new TagToken(tag);
                                     }
 
@@ -522,7 +495,7 @@ namespace TagParsing
                                     {
                                         string tagname = buffer.ToString();
                                         Tag tag = GetTag(tagname);
-                                        ParseState = tagname.ToLower().Equals("script") ? State.Script1 : State.Initial;
+                                        ParseState = State.Initial;
                                         return new TagToken(tag);
                                     }
 
@@ -565,7 +538,7 @@ namespace TagParsing
                                     {
                                         string tagname = buffer.ToString();
                                         Tag tag = new Tag(tagname, CaseSensitive);
-                                        ParseState = tagname.ToLower().Equals("script") ? State.Script1 : State.Initial;
+                                        ParseState = State.Initial;
                                         return new TagToken(tag);
                                     }
 
@@ -965,7 +938,7 @@ namespace TagParsing
                                     {
                                         string tagname = buffer.ToString();
                                         Tag tag = new Tag(tagname, CaseSensitive);
-                                        ParseState = tagname.ToLower().Equals("script") ? State.Script1 : State.Initial;
+                                        ParseState = State.Initial;
                                         return new TagToken(tag);
                                     }
 
@@ -1331,195 +1304,6 @@ namespace TagParsing
                                         ParseState = State.Recover;
 
                                         buffer = new StringBuilder();
-                                        break;
-                                    }
-                            }
-                            break;
-                        }
-
-                    case State.Script1:
-                        {
-                            Log.DebugFormat("nextChar = {0}", nextChar);
-                            switch (nextChar)
-                            {
-                                case '<':
-                                    {
-                                        ParseState = State.Script2;
-                                        break;
-                                    }
-
-                                default:
-                                    {
-                                        buffer.Append(nextChar);
-                                        break;
-                                    }
-                            }
-                            break;
-                        }
-
-                    case State.Script2:
-                        {
-                            switch (nextChar)
-                            {
-                                case '/':
-                                    {
-                                        ParseState = State.Script3;
-                                        break;
-                                    }
-
-                                default:
-                                    {
-                                        buffer.Append('<');
-                                        buffer.Append(nextChar);
-                                        ParseState = State.Script1;
-                                        break;
-                                    }
-                            }
-                            break;
-                        }
-
-                    case State.Script3:
-                        {
-                            switch (nextChar)
-                            {
-                                case 's':
-                                    {
-                                        ParseState = State.Script4;
-                                        break;
-                                    }
-
-                                default:
-                                    {
-                                        buffer.Append("</");
-                                        buffer.Append(nextChar);
-                                        ParseState = State.Script1;
-                                        break;
-                                    }
-                            }
-                            break;
-                        }
-
-                    case State.Script4:
-                        {
-                            switch (nextChar)
-                            {
-                                case 'c':
-                                    {
-                                        ParseState = State.Script5;
-                                        break;
-                                    }
-
-                                default:
-                                    {
-                                        buffer.Append("</s");
-                                        buffer.Append(nextChar);
-                                        ParseState = State.Script1;
-                                        break;
-                                    }
-                            }
-                            break;
-                        }
-
-                    case State.Script5:
-                        {
-                            switch (nextChar)
-                            {
-                                case 'r':
-                                    {
-                                        ParseState = State.Script6;
-                                        break;
-                                    }
-
-                                default:
-                                    {
-                                        buffer.Append("</sc");
-                                        buffer.Append(nextChar);
-                                        ParseState = State.Script1;
-                                        break;
-                                    }
-                            }
-                            break;
-                        }
-
-                    case State.Script6:
-                        {
-                            switch (nextChar)
-                            {
-                                case 'i':
-                                    {
-                                        ParseState = State.Script7;
-                                        break;
-                                    }
-
-                                default:
-                                    {
-                                        buffer.Append("</scr");
-                                        buffer.Append(nextChar);
-                                        ParseState = State.Script1;
-                                        break;
-                                    }
-                            }
-                            break;
-                        }
-
-                    case State.Script7:
-                        {
-                            switch (nextChar)
-                            {
-                                case 'p':
-                                    {
-                                        ParseState = State.Script8;
-                                        break;
-                                    }
-
-                                default:
-                                    {
-                                        buffer.Append("</scri");
-                                        buffer.Append(nextChar);
-                                        ParseState = State.Script1;
-                                        break;
-                                    }
-                            }
-                            break;
-                        }
-
-                    case State.Script8:
-                        {
-                            switch (nextChar)
-                            {
-                                case 't':
-                                    {
-                                        ParseState = State.Script9;
-                                        break;
-                                    }
-
-                                default:
-                                    {
-                                        buffer.Append("</scrip");
-                                        buffer.Append(nextChar);
-                                        ParseState = State.Script1;
-                                        break;
-                                    }
-                            }
-                            break;
-                        }
-
-                    case State.Script9:
-                        {
-                            switch (nextChar)
-                            {
-                                case '>':
-                                    {
-                                        Stream.Pushback("</script>");
-                                        ParseState = State.Initial;
-                                        return new ScriptToken(buffer.ToString());
-                                    }
-
-                                default:
-                                    {
-                                        buffer.Append("</script");
-                                        buffer.Append(nextChar);
-                                        ParseState = State.Script1;
                                         break;
                                     }
                             }
