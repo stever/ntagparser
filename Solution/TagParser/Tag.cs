@@ -217,10 +217,10 @@ namespace TagParsing
             }
 
             // Go through candidates and remove everything except excluded names.
-            foreach (var key in names)
+            foreach (var key in candidates)
             {
                 var name = IsCaseSensitive ? key : key.ToLower();
-                if (candidates.Contains(name)) Attributes.Remove(name);
+                if (!names.Contains(name)) Attributes.Remove(name);
             }
         }
 
