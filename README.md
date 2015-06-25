@@ -7,7 +7,7 @@ A tag-formatted document parser,mainly used to process HTML documents.
 ```cs
 using (TextReader reader = File.OpenText(@"C:\Test.html"))
 {
-    var parser = new TagParser.TagParser(new ParseReader(reader));
+    var parser = new TagParser(new ParseReader(reader));
     
     ParseToken token;
     while ((token = parser.GetNextToken()) != null)
