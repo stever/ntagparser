@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
-using TagFormattedDocumentParser.Tokens;
+using TagParsing.Tokens;
 using log4net;
 
-namespace TagFormattedDocumentParser
+namespace TagParsing
 {
     public class TagParser : Parser
     {

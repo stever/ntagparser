@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using log4net;
 
-namespace TagFormattedDocumentParser
+namespace TagParsing
 {
     /// <summary>
     /// This class is used to store instances of tags found within a parsed document.

@@ -1,6 +1,6 @@
 using System;
 
-namespace TagFormattedDocumentParser
+namespace TagParsing
 {
     public class EmptyElement : Tag
     {

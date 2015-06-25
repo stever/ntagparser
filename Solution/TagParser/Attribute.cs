@@ -2,7 +2,7 @@ using System.Reflection;
 using System.Text;
 using log4net;
 
-namespace TagFormattedDocumentParser
+namespace TagParsing
 {
     public class Attribute
     {

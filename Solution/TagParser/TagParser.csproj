@@ -7,7 +7,7 @@
     <ProjectGuid>{C4A2FFE8-03A2-45D8-BAA7-D8FEC7753550}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TagFormattedDocumentParser</RootNamespace>
+    <RootNamespace>TagParsing</RootNamespace>
     <AssemblyName>TagParser</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
