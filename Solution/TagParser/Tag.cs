@@ -17,7 +17,7 @@ namespace TagParsing
         private readonly string name;
         private readonly bool caseSensitive;
 
-        public readonly Dictionary<string, Attribute> Attributes = new Dictionary<string, Attribute>();
+        private readonly Dictionary<string, Attribute> attributes;
 
         /// <summary>
         /// This is a constructor for the class: Tag
@@ -26,10 +26,16 @@ namespace TagParsing
         /// <param name="caseSensitive">True if tag and attribute names are case-sensitive.</param>
         public Tag(string name, bool caseSensitive)
         {
+            attributes = new Dictionary<string, Attribute>();
             if (!caseSensitive) name = name.ToLower();
             this.caseSensitive = caseSensitive;
             this.name = name;
         }
+
+        public Dictionary<string, Attribute> Attributes
+        {
+            get { return attributes; }
+        } 
 
         /// <summary>
         /// Validate the attribute name.
@@ -170,6 +176,49 @@ namespace TagParsing
         public List<Attribute> GetAttributes()
         {
             return Attributes.Values.ToList();
+        }
+
+        /// <summary>
+        /// Remove all attributes except an attribute with the given name.
+        /// </summary>
+        /// <param name="name">Name of attribuate to retain.</param>
+        public void RemoveAttributesExcept(string name)
+        {
+            if (!IsCaseSensitive) name = name.ToLower();
+
+            // Extract the existing attribute names into a candidate list.
+            var candidates = new List<string>();
+            foreach (var key in Attributes.Keys)
+            {
+                candidates.Add(key);
+            }
+
+            // Go through candidates and remove everything except excluded name.
+            foreach (var key in candidates)
+            {
+                if (key != name) Attributes.Remove(key);
+            }
+        }
+
+        /// <summary>
+        /// Remove all attributes except attributes with the given names.
+        /// </summary>
+        /// <param name="names">Names of attributes to retain.</param>
+        public void RemoveAttributesExcept(List<string> names)
+        {
+            // Extract the existing attribute names into a candidate list.
+            var candidates = new List<string>();
+            foreach (var key in Attributes.Keys)
+            {
+                candidates.Add(key);
+            }
+
+            // Go through candidates and remove everything except excluded names.
+            foreach (var key in names)
+            {
+                var name = IsCaseSensitive ? key : key.ToLower();
+                if (candidates.Contains(name)) Attributes.Remove(name);
+            }
         }
 
         /// <summary>
