@@ -18,7 +18,6 @@ namespace TagParsing
         {
             Recover,            // Recovery after Tag Error
             Initial,
-            Number,
             OpenTag,            // Start Tag
             TagName,            // Element Content
             EndTag1,            // End Tag
@@ -65,8 +64,6 @@ namespace TagParsing
                     return "error recovery";
                 case State.Initial:
                     return "text content";
-                case State.Number:
-                    return "number text content";
                 case State.OpenTag:
                     return "tag markup entry";
                 case State.TagName:
@@ -303,24 +300,6 @@ namespace TagParsing
                                         return new WordToken(buffer.ToString());
                                     }
 
-                                case '0':
-                                case '1':
-                                case '2':
-                                case '3':
-                                case '4':
-                                case '5':
-                                case '6':
-                                case '7':
-                                case '8':
-                                case '9':
-                                    {
-                                        // Pushback number character, return text in buffer.
-                                        Stream.Pushback(nextChar);
-                                        ParseState = State.Number;
-                                        if (buffer.Length == 0) break;
-                                        return new WordToken(buffer.ToString());
-                                    }
-
                                 case '\'':
                                 case '`':
                                 case '!':
@@ -363,44 +342,6 @@ namespace TagParsing
                                     {
                                         buffer.Append(nextChar);
                                         break;
-                                    }
-                            }
-                            break;
-                        }
-
-                    case State.Number:
-                        {
-                            switch (nextChar)
-                            {
-                                case '0':
-                                case '1':
-                                case '2':
-                                case '3':
-                                case '4':
-                                case '5':
-                                case '6':
-                                case '7':
-                                case '8':
-                                case '9':
-                                    {
-                                        buffer.Append(nextChar);
-                                        break;
-                                    }
-
-                                default:
-                                    {
-                                        Stream.Pushback(nextChar);
-                                        ParseState = State.Initial;
-                                        ParseToken token;
-                                        try
-                                        {
-                                            token = new NumberToken(Convert.ToInt64(buffer.ToString()));
-                                        }
-                                        catch (FormatException)
-                                        {
-                                            token = new WordToken(buffer.ToString());
-                                        }
-                                        return token;
                                     }
                             }
                             break;
@@ -1320,12 +1261,6 @@ namespace TagParsing
                     {
                         if (leftovers.Length == 0) break;
                         return new WordToken(leftovers);
-                    }
-
-                case State.Number:
-                    {
-                        if (leftovers.Length == 0) break;
-                        return new NumberToken(Convert.ToInt64(leftovers));
                     }
 
                 case State.Spaces:

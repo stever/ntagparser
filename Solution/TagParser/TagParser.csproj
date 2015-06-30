@@ -51,7 +51,6 @@
     <Compile Include="Tokens\EntityReferenceToken.cs" />
     <Compile Include="Tokens\GarbageToken.cs" />
     <Compile Include="Tokens\NewlineToken.cs" />
-    <Compile Include="Tokens\NumberToken.cs" />
     <Compile Include="ParseToken.cs" />
     <Compile Include="Tokens\ProcessingInstructionToken.cs" />
     <Compile Include="Tokens\PunctuationToken.cs" />
