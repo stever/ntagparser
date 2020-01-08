@@ -1,5 +1,9 @@
 *.suo
 *.user
-Solution/packages/
-Solution/TagParser/bin/
-Solution/TagParser/obj/
+*.swp
+_ReSharper.Caches/
+.idea/
+.vs/
+bin/
+obj/
+packages/
